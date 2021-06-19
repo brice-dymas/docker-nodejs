@@ -16,12 +16,26 @@ const app = express();
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
 
-app.use( ( req, res ) => res.json( {
-    method: req.method,
-    query: req.query,
-    body: req.body,
-    url: req.url,
-} ) );
+app.use( async ( req, res ) => {
+    const content = {
+        method: req.method,
+        query: req.query,
+        body: req.body,
+        url: req.url,
+    };
+
+    const jsonContent = JSON.stringify( {
+        method: req.method,
+        query: req.query,
+        body: req.body,
+        url: req.url,
+    } );
+
+    await query( `INSERT INTO wizards (content)
+                  VALUES ('${ jsonContent }')` );
+
+    return res.json( content );
+} );
 
 ( async () => {
     await ping();
