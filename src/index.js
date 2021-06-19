@@ -4,3 +4,6 @@
  * @author Salathiel &lt;salathiel@genese.name&gt;
  *
  */
+const { NAME } = require( './env' );
+
+console.log( NAME );
