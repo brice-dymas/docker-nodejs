@@ -4,11 +4,14 @@
  * @author Salathiel &lt;salathiel@genese.name&gt;
  *
  */
+const { ping, query } = require( './database' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 const { PORT } = require( './env' );
 
 const app = express();
+
+ping().catch( console.error );
 
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
