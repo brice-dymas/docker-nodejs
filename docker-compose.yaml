@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgresql:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-password}
+      - POSTGRES_USER=${DB_USERNAME:-user}
+      - POSTGRES_DB=${DB_DATABASE:-db}
+
+  application:
+    build:
+      context: .
+      target: development
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - DB_USERNAME=${DB_USERNAME:-user}
+      - DB_DATABASE=${DB_DATABASE:-db}
+      - DB_HOST=${DB_HOST:-postgresql}
+    links:
+      - postgresql:${DB_HOST:-postgresql}
+    depends_on:
+      - postgresql
