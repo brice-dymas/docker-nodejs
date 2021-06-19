@@ -5,6 +5,7 @@
  *
  */
 const { ping, query } = require( './database' );
+const { migration } = require( './migration' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 const { PORT } = require( './env' );
@@ -23,5 +24,6 @@ app.use( ( req, res ) => res.json( {
 
 ( async () => {
     await ping();
+    await migration();
     app.listen( PORT, () => console.log( `Application started on ::${ PORT }` ) );
 } )().catch( console.error );
