@@ -4,6 +4,7 @@
  * @author Salathiel &lt;salathiel@genese.name&gt;
  *
  */
+const { doShutdown } = require( './shutdown' );
 const { ping, query } = require( './database' );
 const { migration } = require( './migration' );
 const bodyParser = require( 'body-parser' );
@@ -25,5 +26,9 @@ app.use( ( req, res ) => res.json( {
 ( async () => {
     await ping();
     await migration();
-    app.listen( PORT, () => console.log( `Application started on ::${ PORT }` ) );
+
+    const server = app.listen( PORT, () =>
+        console.log( `Application started on ::${ PORT }` ) );
+
+    await doShutdown( server );
 } )().catch( console.error );
