@@ -8,19 +8,25 @@ const { Pool } = require( 'pg' );
 const { DB_CONNECTION_STRING } = require( './env' );
 
 let pool;
+let close = Function.prototype;
 
 function query( query ) {
-    pool = pool ?? new Pool( { connectionString: DB_CONNECTION_STRING } );
+    pool = pool ?? ( () => {
+        close = () => {
+            pool?.end();
+            pool = null;
+        };
 
-    return new Promise( ( resolve, reject ) => {
-        pool.query( query, ( err, res ) => {
-            pool.end();
-            err ? reject( err ) : resolve( res );
-        } );
-    } );
+        return new Pool( { connectionString: DB_CONNECTION_STRING } );
+    } )();
+
+    return new Promise( ( resolve, reject ) =>
+        pool.query( query, ( err, res ) =>
+            err ? reject( err ) : resolve( res ) ) );
 }
 
 module.exports = {
     ping: () => query( 'SELECT NOW()' ),
+    close,
     query,
 };
