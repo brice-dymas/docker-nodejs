@@ -4,6 +4,15 @@
  * @author Salathiel &lt;salathiel@genese.name&gt;
  *
  */
-const { NAME } = require( './env' );
+const express = require( 'express' );
+const { PORT } = require( './env' );
+const app = express();
 
-console.log( NAME );
+app.use( ( req, res ) => res.json( {
+    method: req.method,
+    query: req.query,
+    body: req.body,
+    url: req.url,
+} ) );
+
+app.listen( PORT );

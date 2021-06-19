@@ -4,8 +4,8 @@
  * @author Salathiel &lt;salathiel@genese.name&gt;
  *
  */
-const NAME = 'Phoenix Sansar!';
+const PORT = process.env.PORT ?? 3000;
 
 module.exports = {
-    NAME,
+    PORT,
 };
