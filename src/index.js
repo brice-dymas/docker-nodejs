@@ -25,12 +25,12 @@ app.use( async ( req, res ) => {
         url: req.url,
     };
 
-    const jsonContent = JSON.stringify( {
-        method: req.method,
-        query: req.query,
-        body: req.body,
-        url: req.url,
-    } );
+    // const jsonContent = JSON.stringify( {
+    //     method: req.method,
+    //     query: req.query,
+    //     body: req.body,
+    //     url: req.url,
+    // } );
 
     // await query( `INSERT INTO wizards (content)
     //               VALUES ('${ jsonContent }')` );
