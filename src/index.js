@@ -46,4 +46,5 @@ app.use( async ( req, res ) => {
         console.log( `Application started on ::${ PORT }` ) );
 
     await doShutdown( server );
+
 } )().catch( console.error );
