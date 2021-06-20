@@ -11,12 +11,13 @@ services:
   application:
     build:
       context: .
-      target: development
+#      target: development
     environment:
       - DB_PASSWORD=${DB_PASSWORD:-password}
       - DB_USERNAME=${DB_USERNAME:-user}
       - DB_DATABASE=${DB_DATABASE:-db}
       - DB_HOST=${DB_HOST:-postgresql}
+      - DB_PORT=${DB_PORT:-5432}
     links:
       - postgresql:${DB_HOST:-postgresql}
     depends_on:

@@ -13,6 +13,10 @@ COPY . .
 # {{ production }}
 #
 FROM node:alpine AS production
+
+RUN apk add --no-cache bash
+
+ENTRYPOINT ["./run.sh"]
 CMD ["node", "src/index.js"]
 ENV NODE_ENV=production
 WORKDIR /opt/app
