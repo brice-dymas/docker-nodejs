@@ -5,8 +5,8 @@
  *
  */
 const { doShutdown } = require( './shutdown' );
-const { ping, query } = require( './database' );
-const { migration } = require( './migration' );
+// const { ping, query } = require( './database' );
+// const { migration } = require( './migration' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 const { PORT } = require( './env' );
@@ -32,16 +32,15 @@ app.use( async ( req, res ) => {
         url: req.url,
     } );
 
-    await query( `INSERT INTO wizards (content)
-                  VALUES ('${ jsonContent }')` );
+    // await query( `INSERT INTO wizards (content)
+    //               VALUES ('${ jsonContent }')` );
 
     return res.json( content );
 } );
 
 ( async () => {
-    await ping();
-    await migration();
-
+    // await ping();
+    // await migration();
     const server = app.listen( PORT, () =>
         console.log( `Application started on ::${ PORT }` ) );
 
